@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RestaurantsModule } from './restaurants/restaurants.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -11,6 +12,10 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
       driver: ApolloDriver,
       debug: false,
       autoSchemaFile: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: process.env.NODE_ENV === 'dev' ? '.env.dev' : '.env.test',
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
