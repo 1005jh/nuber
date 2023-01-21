@@ -7,7 +7,6 @@ import { User } from './entities/user.entity';
 import { UserService } from './users.service';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 
-
 @Resolver((of) => User)
 export class UserResolver {
   constructor(private readonly usersService: UserService) {}
@@ -17,7 +16,7 @@ export class UserResolver {
     return true;
   }
   @Mutation((returns) => CreateAccountOutput)
-    async createAccount(
+  async createAccount(
     @Args('input') createAccountInput: CreateAccountInput,
   ): Promise<CreateAccountOutput> {
     try {
@@ -36,7 +35,7 @@ export class UserResolver {
     }
   }
 
-  @Mutation(returns => LoginOutput)
+  @Mutation((returns) => LoginOutput)
   async login(@Args('input') loginInput: LoginInput): Promise<LoginOutput> {
     try {
       const { ok, error, token } = await this.usersService.login(loginInput);
@@ -48,4 +47,6 @@ export class UserResolver {
       };
     }
   }
+  @Query((returns) => User)
+  me() {}
 }

@@ -36,7 +36,6 @@ export class User extends CoreEntity {
   @IsEnum(UserRole)
   role: UserRole;
 
-
   @BeforeInsert()
   async hashPassword(): Promise<void> {
     try {
@@ -46,7 +45,6 @@ export class User extends CoreEntity {
       throw new InternalServerErrorException();
     }
   }
-
 
   async checkPassword(aPassword: string): Promise<boolean> {
     try {
